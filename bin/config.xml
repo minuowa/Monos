@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Config>
+	<App type="login" >
+		<net ip="127.0.0.1" port="9631" threadCount="1024"/>
+		<db dbname="yourworld" user="root" passwrod="ni2handan" host="127.0.0.1" port="3307" autoCreateAccount="true"/>
+	</App>
+</Config>
