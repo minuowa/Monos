@@ -16,8 +16,14 @@ public:
 
 	void queryBegin(const char* cmd);
 
+	/*
+		Only return first record or nothing.
+	*/
 	bool queryEnd(stringVector& result);
 
+	/*
+		return all eligible records.
+	*/
 	bool queryEnd(std::vector<shared_ptr<stringVector>>& result);
 
 	bool queryEnd();

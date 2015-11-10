@@ -1,52 +1,42 @@
 #pragma once
 #include "ScriptArgs.h"
-#include "mono\metadata\object.h"
 
 class CX_LIB ScriptObject
 {
 public:
-	virtual const char* className() = 0;
-	virtual const char* dbClassName() = 0;
-	const char* nameSpace() const;
-	const char* dbNameSpace() const;
+	
+	const char* className();
 
-	const char* guid();
+	const char* nameSpace() const;
+	
+	ScriptObject();
+	ScriptObject(const char* classname, const char* namespacename = nullptr);
+
+	~ScriptObject();
 
 public:
+	MonoObject* get();
 
-	ScriptObject();
-	~ScriptObject();
+	const char* guid();
+	virtual void setGuid(const char* guid);
 
 	virtual bool init();
 
+	template<typename T = void> 
+	T call(const char* method, ScriptArgs* args = nullptr);
+
+	template<> 
 	void call(const char* method, ScriptArgs* args);
 
-	void callRemote(const char* method,ScriptArgs* args);
-
-	bool fetchByDBField(const char* field);
-
-	bool saveToDB();
-	bool createAndInsertToDB();
-	void requireGUID();
-	void updateGUIDByScript();
+	MonoString* monoNewString(const char* str);
 
 public:
 
 	template<typename T>
-	void setField(const char* field, T& value);
+	void setField(const char* field, T value);
 
 	template<typename T>
 	void getField(const char* field, T& value);
-
-
-	template<typename T>
-	void setDBField(const char* field, const T& value);
-	void setDBField(const char* field, const char* value);
-	void setDBField(const char* field, const string& value);
-
-	template<typename T>
-	void getDBField(const char* field, T& value);
-	void getDBField(const char* field, string& value);
 
 private:
 
@@ -54,6 +44,9 @@ private:
 	void setTheField(const char* namespacename, const char* classname, const char* field, T& value, MonoObject* obj);
 	void setTheField(const char* namespacename, const char* classname, const char* field, string& value, MonoObject* obj);
 	void setTheField(const char* namespacename, const char* classname, const char* field, MonoString* value, MonoObject* obj);
+	void setTheField(const char* namespacename, const char* classname, const char* field, MonoObject* value, MonoObject* obj);
+	void setTheField(const char* namespacename, const char* classname, const char* field, MonoArray* value, MonoObject* obj);
+	void setTheField(const char* namespacename, const char* classname, const char* field, const char* value, MonoObject* obj);
 
 	template<typename T>
 	void getTheField(const char* namespacename, const char* classname, const char* field, T& value, MonoObject* obj);
@@ -67,29 +60,33 @@ protected:
 
 	MonoObject* mObject;
 	
-	MonoObject* mDBObject;
-
-private:
-	
 	string mGUID;
 
+protected:
+
+	string mClassName;
+	string mNameSpace;
+
 private:
-
 	static const char* YW_SCRIPT_NAME_SPACE;
-
-	static const char* YW_DATABASE_SPACE;
 };
 
 template<typename T>
-void ScriptObject::setField(const char* field, T& value)
+T ScriptObject::call(const char* method, ScriptArgs* args)
 {
-	setTheField(nameSpace(), className(), value, mObject);
+	return App::Script.invoke<T>(nameSpace(), className(), method, mObject, args ? args->pointer() : nullptr);
+}
+
+template<typename T>
+void ScriptObject::setField(const char* field, T value)
+{
+	setTheField(nameSpace(), className(), field, value, mObject);
 }
 
 template<typename T>
 void ScriptObject::getField(const char* field, T& value)
 {
-	getField(nameSpace(), className(), field, value, mObject);
+	getTheField(nameSpace(), className(), field, value, mObject);
 }
 
 template<typename T>
@@ -136,4 +133,8 @@ void ScriptObject::getDBField(const char* field, T& value)
 inline const char* ScriptObject::guid()
 {
 	return mGUID.c_str();
+}
+inline MonoObject* ScriptObject::get()
+{
+	return mObject;
 }

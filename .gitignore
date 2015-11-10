@@ -1,1 +1,5 @@
 /ipch
+/Core/Debug/*.obj
+/Debug/*.pdb
+/*.sdf
+*.tlog

@@ -58,29 +58,20 @@ bool MySqlExecuter::queryEnd()
 bool MySqlExecuter::queryEnd(stringVector& result)
 {
 	MYSQL_RES* ress = mysql_store_result(mConnection);
-
 	if (ress)
 	{
+		assert(ress->row_count <= 1);
+
 		MYSQL_ROW row = mysql_fetch_row(ress);
 
-		int n = 0;
-		if(ress->lengths)
-			n = *ress->lengths;
-
-		if (n>0)
+		if (row)
 		{
-			for (unsigned long i = 0; i < n; ++i)
-				result.push_back(row[i]);
-		}
-		else
-		{
-			while (row)
+			for (size_t i = 0; i < ress->field_count; ++i)
 			{
-				result.push_back(row[0]);
-				row = mysql_fetch_row(ress);
+				result.push_back(row[i]);
 			}
 		}
-
+		return result.size() > 0;
 	}
 	else
 	{
@@ -97,17 +88,23 @@ bool MySqlExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result)
 
 	if (ress)
 	{
-		MYSQL_ROW row = mysql_fetch_row(ress);
-		int n = 0;
-		while (row)
+		for (size_t r = 0; r < ress->row_count; ++r)
 		{
-			assert(n < result.size());
 			shared_ptr<stringVector> vec(new stringVector());
-			for (unsigned long i = 0; i < *ress->lengths; ++i)
-				vec->push_back(row[i]);
-			++n;
-			row = mysql_fetch_row(ress);
+			result.push_back(vec);
+
+			MYSQL_ROW row = mysql_fetch_row(ress);
+
+			if (row)
+			{
+				for (size_t i = 0; i < ress->field_count; ++i)
+				{
+					vec->push_back(row[i]);
+				}
+			}
 		}
+
+		return result.size() > 0;
 	}
 
 	return result.size() > 0;

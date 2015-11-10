@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MonoEngine.h"
 
-#include <mono/jit/jit.h>
+#include <mono/mini/jit.h>
 #include <mono/metadata/assembly.h>
 #include <mono/metadata/mono-debug.h>
 #include <mono/metadata/debug-helpers.h>
@@ -16,7 +16,7 @@
 #include "Test.h"
 
 MonoEngine::MonoEngine()
-	:mManagedBinaryPath("..\\scripts\\Scripts.exe")
+	:mManagedBinaryPath("..\\scripts\\Scripts.dll")
 	,mImage(nullptr)
 {
 }
@@ -33,12 +33,13 @@ bool MonoEngine::initialize()
 
 	registAllFunction();
 
-	MonoObject* initializer = newObject("Scripts.DataBase", "DataInitializer");
+	gTest.DoWork();
 
-	bool res = invoke<bool>("Scripts.DataBase", "DataInitializer", "Init", initializer, nullptr);
+	ScriptObject initializer("DataInitializer");
+	initializer.init();
+	bool res = initializer.call<bool>("Init");
 	assert(res);
 
-	gTest.DoWork();
 
 	return res;
 }
@@ -97,7 +98,8 @@ namespace CoreScript
 
 		MonoEngine& scriptengine = App::Script;
 
-		MonoArray* monoStringArray = scriptengine.createArray("System", "String", result.size());
+		//MonoArray* monoStringArray = scriptengine.createArray("System", "String", result.size());
+		MonoArray* monoStringArray = scriptengine.createArray(mono_get_string_class(), result.size());
 
 		for (size_t i = 0; i < result.size();++i)
 		{
@@ -107,25 +109,38 @@ namespace CoreScript
 
 		ScriptArgs args;
 		args << monoStringArray << obj;
+		bool res = scriptengine.invoke<bool>("DataBase", "DataInitializer", "deseriallize", obj, args.pointer());
+		return res;
+	}
 
-		return scriptengine.invoke<bool>("Scripts.DataInitializer", "DataInitializer", "deseriallize", obj, args.pointer());
+	void DB_Sync(MonoString* account_guid,MonoString* cmd)
+	{
+		string cmdstring = mono_string_to_utf8(cmd);
+		string account_guidstring = mono_string_to_utf8(account_guid);
+		App::World.sync(account_guidstring, cmdstring);
 	}
 }
 
 void MonoEngine::registAllFunction()
 {
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_hasTable", CoreScript::DB_hasTable);
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_createEmptyTable", CoreScript::DB_createEmptyTable);
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_createTable", CoreScript::DB_createTable);
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_alterTableColumnAttribute", CoreScript::DB_alterTableColumnAttribute);
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_insert", CoreScript::DB_insert);
-	registerFunction("Scripts.DataBase", "DataInitializer", "DB_queryToScriptObject", CoreScript::DB_queryToScriptObject);
+	registerFunction("DataBase", "DataInitializer", "DB_hasTable", CoreScript::DB_hasTable);
+	registerFunction("DataBase", "DataInitializer", "DB_createEmptyTable", CoreScript::DB_createEmptyTable);
+	registerFunction("DataBase", "DataInitializer", "DB_createTable", CoreScript::DB_createTable);
+	registerFunction("DataBase", "DataInitializer", "DB_alterTableColumnAttribute", CoreScript::DB_alterTableColumnAttribute);
+	registerFunction("DataBase", "DataInitializer", "DB_insert", CoreScript::DB_insert);
+	registerFunction("DataBase", "DataInitializer", "DB_queryToScriptObject", CoreScript::DB_queryToScriptObject);
+	registerFunction("DataBase", "ScriptObject", "DB_Sync", CoreScript::DB_Sync);
 }
 
 MonoArray* MonoEngine::createArray(const char* namespacename, const char* classname, u32 cnt)
 {
 	MonoClass* monoClass = getClass(namespacename, classname);
 	return mono_array_new(mDomain, monoClass, cnt);
+}
+
+MonoArray* MonoEngine::createArray(MonoClass* monoclass, u32 cnt)
+{
+	return mono_array_new(mDomain, monoclass, cnt);
 }
 
 MonoString* MonoEngine::createString(const char* text)
@@ -194,12 +209,17 @@ MonoClass* MonoEngine::getClass(const char* namespacename, const char* classname
 
 bool MonoEngine::initBase()
 {
-	mono_set_dirs("..\\Mono\\Lib", "..\\Mono\\etc");
+	const char* min_runtime_lib_path = "..\\Lib";
+	//lib path:the path of "mono\\2.0\\mscorlib.dll"
+	mono_set_dirs(min_runtime_lib_path,"..\\Etc");
 
 	mono_debug_init(MONO_DEBUG_FORMAT_MONO);
 
 	mDomain = mono_jit_init("App");
+	//mDomain = mono_jit_init(min_runtime_lib_path);
 	assert(mDomain);
+
+	//mono_assembly_setrootdir(min_runtime_lib_path);
 
 	mAssembly = mono_domain_assembly_open(mDomain, mManagedBinaryPath);
 	if (!mAssembly)
@@ -210,7 +230,15 @@ bool MonoEngine::initBase()
 	}
 
 	mImage = mono_assembly_get_image(mAssembly);
+
+	debug_info();
+
 	return mImage != nullptr;
+}
+
+void MonoEngine::debug_info()
+{
+	printf("Mono Info:%s", mono_get_runtime_build_info());
 }
 
 MonoObject* MonoEngine::newObject(const char* namespacename, const char* classname)

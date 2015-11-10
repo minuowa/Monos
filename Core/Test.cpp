@@ -17,7 +17,7 @@ void Test::DoWork()
 {
 	MonoEngine& gMono = App::Script;
 	{
-		MonoObject* client = gMono.newObject("Scripts","Test");
+		MonoObject* client = gMono.newObject("Scripts", "Test");
 		ScriptArgs arg;
 
 		gMono.invoke("Scripts", "Test", "testVoid", client, nullptr);
@@ -26,29 +26,30 @@ void Test::DoWork()
 			<< 15;
 		gMono.invoke("Scripts", "Test", "testParam", client, arg.pointer());
 	}
-
+	{
+		ScriptObject* sp = new ScriptObject("DataInitializer");
+		sp->init();
+		int count = 0;
+		sp->getField("count", count);
+		assert(count == 6);
+		delete sp;
+	}
 	{
 		Account* account = new Account();
 		account->init();
-		account->setDBField("user", "liming");
+		DBAccount* dbobject = account->getDBObject();
+		dbobject->setField("user", "liming");
 
 		string suser;
-		account->getDBField("user", suser);
+		dbobject->getField("user", suser);
 		assert(suser == "liming");
 
 		int initn = 0;
-		account->getDBField("test", initn);
+		dbobject->getField("test", initn);
 		assert(initn == 5);
-		account->setDBField("test", 8);
-		account->getDBField("test", initn);
+		dbobject->setField("test", 8);
+		dbobject->getField("test", initn);
 		assert(initn == 8);
+		delete account;
 	}
-	//MonoObject* client = gMono.newObject("Scripts","Client");
-	//gMono.invoke("Scripts", "Client", "OutMe", client, nullptr);
-
-	//client = gMono.newObject("Scripts", "S_Account");
-	//gMono.invoke("Scripts", "S_Account", "enterScene", client, nullptr);
-
-	//client = gMono.newObject("Scripts", "S_Account");
-	//gMono.invoke("Scripts", "S_Account", "enterScene", client, nullptr);
 }

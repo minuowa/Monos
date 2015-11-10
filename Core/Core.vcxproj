@@ -163,9 +163,12 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="DBAccount.h" />
+    <ClInclude Include="DBObject.h" />
     <ClInclude Include="MySqlExecuter.h" />
     <ClInclude Include="MonoEngine.h" />
     <ClInclude Include="NetWork.h" />
+    <ClInclude Include="Role.h" />
     <ClInclude Include="ScriptArgs.h" />
     <ClInclude Include="ScriptObject.h" />
     <ClInclude Include="SQLExecuter.h" />
@@ -184,9 +187,12 @@
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="DBAccount.cpp" />
+    <ClCompile Include="DBObject.cpp" />
     <ClCompile Include="MonoEngine.cpp" />
     <ClCompile Include="MySqlExecuter.cpp" />
     <ClCompile Include="NetWork.cpp" />
+    <ClCompile Include="Role.cpp" />
     <ClCompile Include="ScriptArgs.cpp" />
     <ClCompile Include="ScriptObject.cpp" />
     <ClCompile Include="SQLExecuter.cpp" />

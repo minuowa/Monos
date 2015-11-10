@@ -36,3 +36,13 @@ void* ScriptArgs::makeArg(const string& arg)
 	return str;
 }
 
+void* ScriptArgs::makeArg(MonoArray* arg)
+{
+	return arg;
+}
+
+void* ScriptArgs::makeArg(MonoObject* arg)
+{
+	return arg;
+}
+

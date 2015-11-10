@@ -2,3 +2,9 @@ D:\project\Monos\Monos\Scripts\bin\Debug\Scripts.dll
 D:\project\Monos\Monos\Scripts\bin\Debug\Scripts.pdb
 D:\project\Monos\Monos\Build\scripts\Scripts.dll
 D:\project\Monos\Monos\Build\scripts\Scripts.pdb
+D:\project\Monos\Monos\bin\scripts\Scripts.pdb
+D:\project\Monos\Monos\Scripts\obj\Debug\Scripts.pdb
+D:\project\Monos\Monos\Scripts\obj\Debug\Scripts.csprojResolveAssemblyReference.cache
+D:\project\Monos\Monos\bin\scripts\Scripts.dll.config
+D:\project\Monos\Monos\bin\scripts\Scripts.dll
+D:\project\Monos\Monos\Scripts\obj\Debug\Scripts.dll

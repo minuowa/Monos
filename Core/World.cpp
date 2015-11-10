@@ -29,5 +29,13 @@ void World::onEnterWorld(Account* account)
 {
 	assert(mAccounts.find(account->guid()) == mAccounts.end());
 	mAccounts.insert(make_pair(account->guid(), account));
-	account->enterWorld();
+	account->enterGate();
+}
+
+void World::sync(string account_guid, string cmd)
+{
+	auto acc = mAccounts.find(account_guid);
+	assert(acc != mAccounts.end());
+	Account* account = acc->second;
+	account->sendDB(cmd);
 }

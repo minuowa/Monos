@@ -16,6 +16,8 @@ public:
 
 	void onEnterWorld(Account* account);
 
+	void sync(string account_guid, string cmd);
+
 private:
 	map<string, Account*> mAccounts;
 };

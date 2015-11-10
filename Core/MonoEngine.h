@@ -20,6 +20,8 @@ public:
 
 	MonoArray* createArray(const char* namespacename, const char* classname, u32 cnt);
 
+	MonoArray* createArray(MonoClass* monoclass, u32 cnt);
+
 	MonoString* createString(const char* text);
 
 	//MonoArray* createStringArray(const char* namespacename, const char* classname, u32 cnt);
@@ -42,6 +44,8 @@ private:
 	
 	bool initBase();
 
+	void debug_info();
+
 private:
 
 	MonoDomain* mDomain;
@@ -58,7 +62,7 @@ template<typename T>
 T MonoEngine::invoke(const char* namespacename, const char* classname, const char* method, MonoObject* instance, void** params)
 {
 	MonoObject* ret = simpleInvoke(namespacename, classname, method, instance, params);
-	T t;
+	T t=Default::DefaultValue<T>();
 	if (ret)
 		t = *((T*)mono_object_unbox(ret));
 	return t;

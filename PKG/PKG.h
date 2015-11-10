@@ -18,6 +18,8 @@ namespace PCODE
 		Create_Account,
 		Login,
 		Login_Result,
+		DBData,
+		Protocolbuf,
 	};
 }
 enum CreateAccountResult
@@ -100,6 +102,15 @@ struct rtLogin :PKG
 	rtLogin()
 	{
 		code = PCODE::Login_Result;
+	}
+};
+struct rtDBData:PKG 
+{
+	char data[Default::DataSize];
+	rtDBData()
+	{
+		code = PCODE::DBData;
+		zeroArray(data);
 	}
 };
 #pragma pack(pop)

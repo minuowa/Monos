@@ -156,18 +156,18 @@ void DataBase::reGetTables()
 	sm << "show tables;";
 	mExecuter->queryBegin(sm.str().c_str());
 		
-	std::vector<string> tableNames;
+	std::vector<shared_ptr<stringVector>> tableNames;
 
 	if (!mExecuter->queryEnd(tableNames))
 	{
 		//assert(0);
 	}
-	for (string name : tableNames)
+	for (auto record : tableNames)
 	{
 		SQLTable* table = new SQLTable();
-		table->name = name;
+		table->name = record->at(0);
 		table->refreshRecordCount();
-		mTables.insert(make_pair(name, table));
+		mTables.insert(make_pair(table->name, table));
 	}
 }
 

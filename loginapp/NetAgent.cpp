@@ -99,7 +99,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con)
 {
 	//the account enter the net gate
 	Account* gateAccount = new Account();
-
+	gateAccount->set_connect(con);
 	if (!gateAccount->init())
 	{
 		delete gateAccount;
@@ -108,17 +108,17 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con)
 
 	bool res = false;
 
-	gateAccount->setDBField(YW_TABLE_ACCOUNT_USER, user);
+	gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_USER, user);
 
-	if(!gateAccount->fetchByDBField(YW_TABLE_ACCOUNT_USER))
+	if(!gateAccount->getDBObject()->fetchByField(YW_TABLE_ACCOUNT_USER))
 	{
 		if (App::Config.loginApp.db.autoCreateAccount)
 		{
-			gateAccount->setDBField(YW_TABLE_ACCOUNT_PSD, psw);
-			gateAccount->setDBField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
+			gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_PSD, psw);
+			gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
 
 			//does not exist,create successfully!
-			if (gateAccount->createAndInsertToDB())
+			if (gateAccount->getDBObject()->createAndInsertToDB())
 			{
 				res = true;
 			}
@@ -127,7 +127,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con)
 	else 
 	{
 		MonoString* pwd;
-		gateAccount->getDBField(YW_TABLE_ACCOUNT_PSD, pwd);
+		gateAccount->getDBObject()->getField(YW_TABLE_ACCOUNT_PSD, pwd);
 		if (pwd)
 		{
 			string strpwd = mono_string_to_utf8(pwd);

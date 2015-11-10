@@ -23,7 +23,8 @@ private:
 	void* makeArg(const char* arg);
 	
 	void* makeArg(const string& arg);
-
+	void* makeArg(MonoArray* arg);
+	void* makeArg(MonoObject* arg);
 private:
 
 	static const int MAX_ARG = 16;

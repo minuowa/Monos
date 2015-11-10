@@ -2,16 +2,18 @@ d:\project\monos\monos\core\debug\core.pch
 d:\project\monos\monos\core\debug\vc140.pdb
 d:\project\monos\monos\core\debug\vc140.idb
 d:\project\monos\monos\core\debug\stdafx.obj
-d:\project\monos\monos\core\debug\account.obj
 d:\project\monos\monos\core\debug\app.obj
 d:\project\monos\monos\core\debug\config.obj
 d:\project\monos\monos\core\debug\configinfo.obj
 d:\project\monos\monos\core\debug\connection.obj
 d:\project\monos\monos\core\debug\core.obj
 d:\project\monos\monos\core\debug\database.obj
+d:\project\monos\monos\core\debug\dbaccount.obj
+d:\project\monos\monos\core\debug\dbobject.obj
 d:\project\monos\monos\core\debug\monoengine.obj
 d:\project\monos\monos\core\debug\mysqlexecuter.obj
 d:\project\monos\monos\core\debug\network.obj
+d:\project\monos\monos\core\debug\role.obj
 d:\project\monos\monos\core\debug\scriptargs.obj
 d:\project\monos\monos\core\debug\scriptobject.obj
 d:\project\monos\monos\core\debug\sqlexecuter.obj
@@ -20,6 +22,7 @@ d:\project\monos\monos\core\debug\sqltable.obj
 d:\project\monos\monos\core\debug\test.obj
 d:\project\monos\monos\core\debug\main.obj
 d:\project\monos\monos\core\debug\world.obj
+d:\project\monos\monos\core\debug\account.obj
 d:\project\monos\monos\bin\debug\core.lib
 d:\project\monos\monos\bin\debug\core.exp
 d:\project\monos\monos\bin\debug\core.ilk
