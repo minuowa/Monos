@@ -36,6 +36,6 @@ private:
 	uBuffer mBuffer;
 	u32 mLength;
 };
-#define SendPKG(ss,pkg) {BundleSender sender(ss);sender.send(&pkg,sizeof(pkg));} 
+#define SendPKG(streamSocket,pkg) {BundleSender sender(streamSocket);sender.send(&pkg,sizeof(pkg));} 
 
 

@@ -25,7 +25,6 @@ ScriptObject::ScriptObject()
 
 
 ScriptObject::ScriptObject(const char* classname, const char* namespacename /*= nullptr*/)
-	: mNameSpace(YW_SCRIPT_NAME_SPACE)
 {
 	if (classname)
 		mClassName = classname;

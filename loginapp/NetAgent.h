@@ -3,6 +3,7 @@ class Account;
 class NetAgent:public uCallBack
 {
 public:
+
 	NetAgent();
 	~NetAgent();
 

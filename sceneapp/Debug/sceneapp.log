@@ -1,0 +1,28 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (cellapp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  stdafx.cpp
+d:\project\monos\monos\common\xfilename.hpp(103): warning C4018: “<”: 有符号/无符号不匹配
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2886): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2896): note: 参见“__on_failure”的前一个定义
+  NetAgent.cpp
+d:\project\monos\monos\common\xfilename.hpp(103): warning C4018: “<”: 有符号/无符号不匹配
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2886): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2896): note: 参见“__on_failure”的前一个定义
+  main.cpp
+d:\project\monos\monos\common\xfilename.hpp(103): warning C4018: “<”: 有符号/无符号不匹配
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2886): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2896): note: 参见“__on_failure”的前一个定义
+  SceneApp.cpp
+d:\project\monos\monos\common\xfilename.hpp(103): warning C4018: “<”: 有符号/无符号不匹配
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2886): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2896): note: 参见“__on_failure”的前一个定义
+  正在生成代码...
+  sceneapp.vcxproj -> D:\project\Monos\Monos\sceneapp\..\bin\Debug\sceneapp.exe

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ConfigInfo.h"
 
-CommonConfig::CommonConfig()
+GameConfig::GameConfig()
 {
 
 }

@@ -34,6 +34,9 @@ namespace DataBase
 
         public DataInitializer()
         {
+            //Console.WriteLine(Environment.StackTrace);
+            //Console.WriteLine(Mono.CSharp.Evaluator.GetVars());
+            //Mono.CSharp.Evaluator.Interrupt();
             //XmlDocument doc = new XmlDocument();
             //doc.CreateElement("root");
             //doc.Save("1234.xml");

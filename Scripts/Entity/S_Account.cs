@@ -7,7 +7,8 @@ using System.Text;
 //
 namespace DataBase
 {
-    public class S_Account : ScriptObject
+    public class S_Account 
+        : ScriptObject
     {
         public int test = 5;
         public S_Account()
@@ -32,7 +33,7 @@ namespace DataBase
         {
             Console.WriteLine("enterWorld ctor ...");
 
-            this.sync(mDBInterface);
+            this.SyncClient(mDBInterface);
         }
 
         public void callClient(string method, string args)

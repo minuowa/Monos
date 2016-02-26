@@ -27,7 +27,7 @@ bool NetWork::initialize()
 	mClient = new Poco::Net::StreamSocket();
 	try
 	{
-		mClient->connect(Poco::Net::SocketAddress("localhost", 9631));
+		mClient->connect(Poco::Net::SocketAddress("localhost", 15299));
 	}
 	catch (Poco::Exception e)
 	{

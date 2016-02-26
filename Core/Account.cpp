@@ -4,7 +4,7 @@
 #include "Role.h"
 #include "Bundle.h"
 Account::Account()
-	:mConnect(nullptr)
+	:mNetInterface(nullptr)
 {
 	mClassName = "S_Account";
 }
@@ -18,7 +18,7 @@ Account::~Account()
 
 void Account::enterGate()
 {
-	this->getDBObject()->fetch();
+	this->getDBInterface()->fetch();
 	this->call("enterWorld");
 }
 
@@ -32,36 +32,44 @@ void Account::onRoleRqEnterWorld(string guid)
 	}
 	mActiveRole->setGuid(guid.c_str());
 	mActiveRole->enterScene();
+
 }
 
-void Account::sendDB(string data)
+void Account::sendDBToClient(string data)
 {
-	assert(mConnect);
+	assert(mNetInterface);
 	rtDBData rt;
 	assert(data.length() < Default::DataSize);
 	dMemoryCopy(rt.data, (void*)data.c_str(), data.length());
-	SendPKG(mConnect->getSocket(), rt);
+	SendPKG(mNetInterface->getSocket(), rt);
 }
 
-void Account::set_connect(Connection* connect)
+void Account::setConnection(Connection* connect)
 {
-	mConnect = connect;
+	mNetInterface = connect;
 }
 
-DBAccount* Account::getDBObject()
+DBInterface* Account::getDBInterface()
 {
-	return mDBObject;
+	return mDBInterface;
 }
+
+void Account::enterWorld()
+{
+	App::World.onEnterWorld(this);
+}
+
+
 
 bool Account::init()
 {
 	if (!__super::init())
 		return false;
-	mDBObject = new DBAccount();
-	if (!mDBObject->init())
+	mDBInterface = new DBInterface();
+	if (!mDBInterface->init())
 		return false;
 
-	setField("mDBInterface", mDBObject->get());
+	setField("mDBInterface", mDBInterface->get());
 
 	call("onInitEnd");
 

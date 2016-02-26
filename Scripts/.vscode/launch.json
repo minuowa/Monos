@@ -1,0 +1,12 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "attach to app",
+			"type": "mono",
+			"program": "Scripts_mono.dll",
+			"request": "launch",
+			"address": "localhost"
+		}
+	]
+}

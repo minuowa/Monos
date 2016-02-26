@@ -13,6 +13,7 @@ namespace DataBase
     }
     public class DB:Attribute
     {
+        public bool Key = false;
         public DB(DBType type = DBType.Defalut, string def = null)
         {
             mDefine = def;

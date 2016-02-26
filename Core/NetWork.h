@@ -1,5 +1,5 @@
 #pragma once
-struct CommonConfig;
+struct GameConfig;
 
 #include "Poco/Net/TCPServer.h"
 #include "Poco/Net/TCPServerConnection.h"
@@ -16,6 +16,7 @@ class CX_LIB NetWork:uCallBack
 public:
 	uDelegate onMessage;
 	uDelegate onDisconnect;
+	uDelegate onConnect;
 public:
 	struct MsgArgs :public uEventArgs
 	{
@@ -37,6 +38,9 @@ public:
 		Connection* con;
 		Packet() :data(nullptr), con(nullptr), len(0) {
 		};
+		~Packet(){
+			delete[] data;
+		}
 	};
 public:
 	NetWork();

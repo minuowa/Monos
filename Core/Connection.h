@@ -11,7 +11,6 @@ public:
 	void run();
 
 	inline Poco::Net::StreamSocket& getSocket();
-	void onmsg(Poco::Net::StreamSocket& ss, char* data, int len);
 
 private:
 

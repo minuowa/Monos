@@ -1,28 +1,2 @@
-﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (App.vcxproj, AppCore.vcxproj, TestEmbedding.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  stdafx.cpp
-  World.cpp
-  main.cpp
-  Test.cpp
-  SQLTable.cpp
-  SQLHelper.cpp
-  SQLExecuter.cpp
-  ScriptObject.cpp
-  ScriptArgs.cpp
-  Role.cpp
-  NetWork.cpp
-  MySqlExecuter.cpp
-  MonoEngine.cpp
-  DBObject.cpp
-  DBAccount.cpp
-  DataBase.cpp
-  Core.cpp
-  Connection.cpp
-  ConfigInfo.cpp
-  Config.cpp
-  App.cpp
-  正在生成代码...
-  正在编译...
-  Account.cpp
-  正在生成代码...
-    正在创建库 ..\bin\Debug\Core.lib 和对象 ..\bin\Debug\Core.exp
+﻿    正在创建库 ..\bin\Debug\Core.lib 和对象 ..\bin\Debug\Core.exp
   Core.vcxproj -> D:\project\Monos\Monos\Core\..\bin\Debug\Core.dll

@@ -1,0 +1,3 @@
+D:\project\Monos\Monos\bin\scripts\Scripts.dll.config
+D:\project\Monos\Monos\bin\scripts\Scripts.dll
+D:\project\Monos\Monos\Scripts\obj\Debug\Scripts.dll

@@ -6,7 +6,8 @@ namespace Default
 	enum Const
 	{
 		NameSize = 24,
-		PSDSize = 24,
+		PasswordSize = 24,
+		HostSize = 256,
 		DataSize = 1024,
 	};
 

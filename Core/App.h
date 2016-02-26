@@ -11,6 +11,7 @@ public:
 	enum APP_TYPE
 	{
 		APP_TYPE_LOGIN,
+		APP_TYPE_CENTER,
 		APP_TYPE_BASE,
 	};
 public:
@@ -31,8 +32,17 @@ public:
 
 	void finish();
 
+	void archive();
+
+protected:
+
+	bool InitNet();
+
+	bool InitDataBase();
+
 private:
 	APP_TYPE mType;
+	int mServerID;
 	uCommandLine mCommandLine;
 };
 

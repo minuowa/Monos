@@ -7,9 +7,8 @@ public:
 
 	~Config();
 public:
-
-	CommonConfig loginApp;
-
+	LoginConfig login;
+	CenterConfig center;
 public:
 
 	bool initialize(const char* file);

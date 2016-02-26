@@ -27,7 +27,7 @@ void Test::DoWork()
 		gMono.invoke("Scripts", "Test", "testParam", client, arg.pointer());
 	}
 	{
-		ScriptObject* sp = new ScriptObject("DataInitializer");
+		ScriptObject* sp = new ScriptObject("DataInitializer", "DataBase");
 		sp->init();
 		int count = 0;
 		sp->getField("count", count);
@@ -37,7 +37,7 @@ void Test::DoWork()
 	{
 		Account* account = new Account();
 		account->init();
-		DBAccount* dbobject = account->getDBObject();
+		DBInterface* dbobject = account->getDBInterface();
 		dbobject->setField("user", "liming");
 
 		string suser;

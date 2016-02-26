@@ -7,110 +7,243 @@
 #pragma pack(1)
 
 #define zeroArray(arr) memset(arr,0,sizeof(arr))
+#define zeroThis(p) memset(p,0,sizeof(*p))
 
-namespace PCODE
+namespace OPCODE
 {
 	enum ID :int
 	{
-		NONE,
-		SYN,
-		ACK,
+		None,
+
+		ClientLogin,
+
+		CenterLogin,
+
+		CenterClient,
+
 		Create_Account,
-		Login,
-		Login_Result,
+
 		DBData,
+
 		Protocolbuf,
 	};
+
+	enum LoginToCenterType :int
+	{
+		L2C_User,
+	};
+	enum ClientLoginType
+	{
+		RqGameServerInfo,
+		RtGameServerInfo,
+	};
+	enum CenterLoginType
+	{
+		AppStart,
+		AppInfo,
+	};
+	enum CenterClientType
+	{
+		RqLogin,
+		RqAccount,
+
+		RtLogin,
+		RtAccount,
+
+		ClientMessage,
+		ServerMessage,
+	};
 }
-enum CreateAccountResult
-{
-	CS_Require,
-	SC_Failed_Exist,
-};
-enum LoginResult
-{
-	None,
-	Successed,
-	Failed,
-	SC_Failed_PSD_Error,
-};
+
 struct PKG
 {
-	PCODE::ID code;
+	u32 opcode;
 	u32 childid;
-	PKG() 
+	PKG()
 	{
-		code = PCODE::NONE;
+		opcode = OPCODE::None;
 		childid = 0;
 	}
 };
-struct PKGACK :PKG
+struct PKG_CenterLogin :PKG
 {
-	int key;
-	PKGACK()
-		:key(1234)
+	PKG_CenterLogin()
 	{
-		code = PCODE::ACK;
+		opcode = OPCODE::CenterLogin;
 	}
 };
-struct PKGSYN:PKG 
+struct PKG_CenterClient :PKG
 {
-	int key;
-	PKGSYN()
-		:key(1234)
+	PKG_CenterClient()
 	{
-		code = PCODE::SYN;
+		this->opcode = OPCODE::CenterClient;
 	}
 };
-struct rqCreateAccount :PKG
+enum AccountAction
+{
+	AccountAction_None,
+	AccountAction_Create,
+	AccountAction_Rename,
+	AccountAction_Delete,
+};
+
+enum AccountErrorCode
+{
+	AccountErrorCode_None,
+	AccountErrorCode_Sucessed,
+	AccountErrorCode_Existed,
+};
+
+struct rqAccount :PKG_CenterLogin
 {
 	char user[Default::NameSize];
-	char psd[Default::PSDSize];
-	rqCreateAccount()
+	char psw[Default::PasswordSize];
+
+	AccountAction act;
+
+	rqAccount()
 	{
+		this->childid = OPCODE::CenterClientType::RqAccount;
+		act = AccountAction::AccountAction_None;
 		zeroArray(user);
-		zeroArray(psd);
-		code = PCODE::Create_Account;
-		childid = CS_Require;
+		zeroArray(psw);
 	}
 };
 
-struct rtCreateAccountFailed_Exist :PKG
+struct rtAccount :PKG_CenterClient
 {
-	rtCreateAccountFailed_Exist()
+	AccountErrorCode errorCode;
+	rtAccount()
 	{
-		code = PCODE::Create_Account;
-		childid = SC_Failed_Exist;
+		this->childid = OPCODE::CenterClientType::RtAccount;
+		errorCode = AccountErrorCode::AccountErrorCode_None;
 	}
 };
 
-struct rqLogin:PKG 
-{
-	char user[Default::NameSize];
-	char psd[Default::PSDSize];
-	rqLogin()
-	{
-		code = PCODE::Login;
-		zeroArray(user);
-		zeroArray(psd);
-	}
-};
-
-struct rtLogin :PKG
-{
-	int res;
-	rtLogin()
-	{
-		code = PCODE::Login_Result;
-	}
-};
-struct rtDBData:PKG 
+struct rtDBData :PKG
 {
 	char data[Default::DataSize];
 	rtDBData()
 	{
-		code = PCODE::DBData;
-		zeroArray(data);
+		zeroThis(this);
+		opcode = OPCODE::DBData;
+	}
+};
+
+
+struct rqClientMessage :PKG_CenterClient
+{
+	u32 count;
+
+	char data[0];
+
+	rqClientMessage()
+	{
+		count = 0;
+		this->childid = OPCODE::CenterClientType::ClientMessage;
+	}
+};
+
+enum LoginErrorCode
+{
+	LoginErrorCode_None,
+	Sucessed,
+	UserCantFind,
+	PasswordError,
+};
+struct rqLoginGame :PKG_CenterClient
+{
+	char user[Default::NameSize];
+	char psw[Default::NameSize];
+	rqLoginGame()
+	{
+		zeroThis(this);
+		this->childid = OPCODE::CenterClientType::RqLogin;
+	}
+};
+struct rtLoginGame :PKG_CenterClient
+{
+	LoginErrorCode errorCode;
+
+	rtLoginGame()
+	{
+		this->childid = OPCODE::CenterClientType::RtLogin;
+	}
+};
+struct ClientToLoginPKG :PKG
+{
+	ClientToLoginPKG()
+	{
+		opcode = OPCODE::ClientLogin;
+	}
+};
+struct ClientToLogin_RqGameServerInfo :ClientToLoginPKG
+{
+	int serverID;
+
+	ClientToLogin_RqGameServerInfo()
+	{
+		this->childid = OPCODE::ClientLoginType::RqGameServerInfo;
+		serverID = 0;
+	}
+};
+struct ClientToLogin_RtGameServerInfo :ClientToLoginPKG
+{
+	char host[Default::HostSize];
+	char name[Default::NameSize];
+
+	int port;
+
+	ClientToLogin_RtGameServerInfo()
+	{
+		this->childid = OPCODE::ClientLoginType::RtGameServerInfo;
+		zeroArray(host);
+		zeroArray(name);
+		port = 0;
+	}
+};
+struct PKG_ClientLogin :PKG
+{
+	PKG_ClientLogin()
+	{
+		opcode = OPCODE::ClientLogin;
+	}
+};
+
+
+
+struct l2c_UsrPKG :PKG_ClientLogin
+{
+	int userTmpID;
+
+	l2c_UsrPKG()
+	{
+		childid = OPCODE::L2C_User;
+	}
+};
+struct c2l_CenterAppStartInfoPKG :PKG_CenterLogin
+{
+	char host[Default::HostSize];
+	char name[Default::NameSize];
+
+	int port;
+
+	c2l_CenterAppStartInfoPKG()
+	{
+		this->childid = OPCODE::CenterLoginType::AppStart;
+		zeroArray(host);
+		zeroArray(name);
+		port = 0;
+	}
+};
+
+struct rtCenterAppInfo :PKG_CenterLogin
+{
+	u32 userCount;
+	rtCenterAppInfo()
+	{
+		this->childid = OPCODE::CenterLoginType::AppInfo;
+		userCount = 0;
 	}
 };
 #pragma pack(pop)

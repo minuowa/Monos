@@ -19,7 +19,8 @@ bool LoginApp::initialize()
 	if (!__super::initialize())
 		return false;
 	mNetAgent = new NetAgent();
-	Net.onMessage.push_back(mNetAgent);
-	Net.onDisconnect.push_back(mNetAgent);
+	Net.onMessage += mNetAgent;
+	Net.onDisconnect += mNetAgent;
+	Net.onConnect += mNetAgent;
 	return true;
 }

@@ -20,6 +20,8 @@ public:
 
 	MonoArray* createArray(const char* namespacename, const char* classname, u32 cnt);
 
+	MonoArray* createByteArray(u32 cnt,void* data);
+
 	MonoArray* createArray(MonoClass* monoclass, u32 cnt);
 
 	MonoString* createString(const char* text);

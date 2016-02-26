@@ -16,6 +16,11 @@ NetWork::NetWork()
 NetWork::~NetWork()
 {
 	dSafeDeleteVector(mDataArray);
+	if (mServer)
+	{
+		mServer->stop();
+		dSafeDelete(mServer);
+	}
 }
 
 bool NetWork::initialize(const NetConfig& config)
@@ -53,7 +58,7 @@ void NetWork::prosess()
 			App::Net.onMessage.trigger(&arg);
 		}
 	}
-	dSafeDeleteVector(pktArray);
+	pktArray.destroy();
 }
 
 void NetWork::addMessage(void* data, u32 len, Connection* con)
@@ -61,8 +66,8 @@ void NetWork::addMessage(void* data, u32 len, Connection* con)
 	mLock.lock();
 	Packet* pkt = new Packet();
 	pkt->data = new char[len];
-	pkt->con = con;
 	pkt->len = len;
+	pkt->con = con;
 	dMemoryCopy(pkt->data, data, len);
 	mDataArray.push_back(pkt);
 	mLock.unlock();

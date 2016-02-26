@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProtoBuf.Meta;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -66,20 +67,19 @@ namespace DataBase
             DataBase.Account account = new Account();
             account.guid = "guillllll";
             account.user = "90432";
-            account.pwd = "fjsadlkf";
-            account.roles = new List<string>();
+            account.psw = "fjsadlkf";
+            account.roles = new List<int>();
             for (int i=0;i<4;++i)
             {
-                account.roles.Add(i.ToString() + "..role");
+                account.roles.Add(i);
             }
             account.test = 45;
             account.active_role = account.roles[0];
 
             string conent = DBSerializer.serializePKG(account);
-
             DataBase.Account res = (DataBase.Account)DBSerializer.deserializePKG(conent);
             System.Diagnostics.Debug.Assert(res.test == 45);
-            System.Diagnostics.Debug.Assert(res.pwd == "fjsadlkf");
+            System.Diagnostics.Debug.Assert(res.psw == "fjsadlkf");
         }
     }
 }

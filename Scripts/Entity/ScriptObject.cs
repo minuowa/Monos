@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -12,7 +13,7 @@ namespace DataBase
     public class ScriptObject
     {
         [MethodImplAttribute(MethodImplOptions.InternalCall)]
-        static extern void DB_Sync(string account_guid, string data);
+        public static extern void DB_SyncClient(string account_guid, string data);
 
         protected DataBase.DBPkg mDBInterface;
         public string guid()
@@ -23,12 +24,12 @@ namespace DataBase
         {
         }
 
-        public virtual void sync(DBPkg pkg)
+        public virtual void SyncClient(DBPkg pkg)
         {
             Console.WriteLine("sync: " + pkg.GetType().Name);
             string data = DBSerializer.serializePKG(pkg);
-            Console.WriteLine("sync: " + mDBInterface.guid);
-            DB_Sync(mDBInterface.guid, data);
+            Console.WriteLine("SyncClient: " + data);
+            DB_SyncClient(mDBInterface.guid, data);
         }
         public string callClient(string method, params object[] args)
         {

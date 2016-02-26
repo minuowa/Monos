@@ -15,5 +15,6 @@
     <StartAction>Project</StartAction>
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
     <EnableSQLServerDebugging>false</EnableSQLServerDebugging>
+    <StartArguments>mono --debug --debugger-agent=transport=dt_socket,address=127.0.0.1:8088,server=y,suspend=y centerapp</StartArguments>
   </PropertyGroup>
 </Project>

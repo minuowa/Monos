@@ -1,1 +1,7 @@
-﻿
+﻿  NetWork.cpp
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2886): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2896): note: 参见“__on_failure”的前一个定义
+d:\project\monos\monos\robot\network.cpp(85): error C2664: “BundleReceiver::BundleReceiver(const BundleReceiver &)”: 无法将参数 1 从“Poco::Net::StreamSocket *”转换为“Connection *”
+  d:\project\monos\monos\robot\network.cpp(85): note: 与指向的类型无关；转换要求 reinterpret_cast、C 样式转换或函数样式转换

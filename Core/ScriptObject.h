@@ -36,8 +36,10 @@ public:
 	void setField(const char* field, T value);
 
 	template<typename T>
-	void getField(const char* field, T& value);
-
+	inline void getField(const char* field, T& value);
+	template<>
+	inline void ScriptObject::getField(const char* field, string& value);
+	inline void ScriptObject::getField(const char* field, MonoString* value);
 private:
 
 	template<typename T>
@@ -85,6 +87,15 @@ void ScriptObject::setField(const char* field, T value)
 
 template<typename T>
 void ScriptObject::getField(const char* field, T& value)
+{
+	getTheField(nameSpace(), className(), field, value, mObject);
+}
+template<>
+inline void ScriptObject::getField(const char* field, string& value)
+{
+	getTheField(nameSpace(), className(), field, value, mObject);
+}
+inline void ScriptObject::getField(const char* field, MonoString* value)
 {
 	getTheField(nameSpace(), className(), field, value, mObject);
 }

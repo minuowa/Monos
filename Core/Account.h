@@ -1,7 +1,7 @@
 #pragma once
 #include "ScriptObject.h"
 #include "Connection.h"
-#include "DBAccount.h"
+#include "DBInterface.h"
 class Role;
 class CX_LIB Account
 	:public ScriptObject
@@ -16,28 +16,33 @@ public:
 
 	void enterGate();
 
-	void onRqCreateRole();
-
 	void onRoleRqEnterWorld(string guid);
 
-	void sendDB(string data);
+	void sendDBToClient(string data);
 
-	void set_connect(Connection* connect);
+	void setConnection(Connection* connect);
 
-	DBAccount* getDBObject();
+	DBInterface* getDBInterface();
 
 	void sync(string data);
+
+	void enterWorld();
+
+	inline Connection* getNetInterface();
+
 protected:
 
 	void createRole();
 
-
 protected:
 
-	DBAccount* mDBObject;
+	DBInterface* mDBInterface;
 
 	Role* mActiveRole;
 
-	Connection* mConnect;
+	Connection* mNetInterface;
 };
-
+inline Connection* Account::getNetInterface()
+{
+	return mNetInterface;
+}

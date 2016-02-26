@@ -89,9 +89,10 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;HOST_WIN32</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -107,9 +108,10 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;HOST_WIN32</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -163,7 +165,7 @@
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="DataBase.h" />
-    <ClInclude Include="DBAccount.h" />
+    <ClInclude Include="DBInterface.h" />
     <ClInclude Include="DBObject.h" />
     <ClInclude Include="MySqlExecuter.h" />
     <ClInclude Include="MonoEngine.h" />
@@ -187,7 +189,7 @@
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataBase.cpp" />
-    <ClCompile Include="DBAccount.cpp" />
+    <ClCompile Include="DBInterface.cpp" />
     <ClCompile Include="DBObject.cpp" />
     <ClCompile Include="MonoEngine.cpp" />
     <ClCompile Include="MySqlExecuter.cpp" />

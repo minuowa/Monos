@@ -15,24 +15,30 @@ namespace DataBase
     [DB(DBType.Table)]
     public class Account : DBPkg
     {
-        [DB]
+        [DB(Key = true)]
+        public int id = 0;
+
+        [DB(Key = true)]
         public string user = "123";
 
         [DB]
-        public string pwd;
+        public string psw;
 
         [DB]
-        public List<string> roles;
+        public List<int> roles;
 
         [DB]
         public int test = 5;
 
         [DB]
-        public string active_role;
+        public int active_role;
     }
     [DB(DBType.Table)]
     public class Role : DBPkg
     {
+        [DB(Key = true)]
+        public int index;
+
         [DB]
         public string name;
 
@@ -47,9 +53,6 @@ namespace DataBase
 
         [DB]
         public Sign sign;
-
-        [DB]
-        public List<string> soldiers;
     }
     public class Sign
     {

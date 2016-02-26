@@ -55,7 +55,7 @@ namespace DataBase
             FieldInfo[] fields = type.GetFields();
             foreach (FieldInfo field in fields)
             {
-                if (getDBType(field) == DBType.Defalut)
+                if (getDBType(field) == DBType.Defalut && !IsSqlKeyWord(field.Name))
                     strarray.Add(field.Name);
             }
             return strarray;
@@ -247,5 +247,22 @@ namespace DataBase
             }
             return valueArray;
         }
+        static bool IsSqlKeyWord(string filed)
+        {
+            foreach (var k in SQL_KEY_WORDS)
+            {
+                if (k == filed)
+                {
+                    Console.WriteLine("IsSqlKeyWord True : " + k);
+                    return true;
+                }
+            }
+            return false;
+        }
+        static string[] SQL_KEY_WORDS = new string[] 
+        {
+            "index",
+        };
+
     }
 }

@@ -8,7 +8,7 @@ d:\project\monos\monos\core\debug\configinfo.obj
 d:\project\monos\monos\core\debug\connection.obj
 d:\project\monos\monos\core\debug\core.obj
 d:\project\monos\monos\core\debug\database.obj
-d:\project\monos\monos\core\debug\dbaccount.obj
+d:\project\monos\monos\core\debug\dbinterface.obj
 d:\project\monos\monos\core\debug\dbobject.obj
 d:\project\monos\monos\core\debug\monoengine.obj
 d:\project\monos\monos\core\debug\mysqlexecuter.obj

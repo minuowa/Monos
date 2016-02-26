@@ -3,6 +3,7 @@
 struct NetConfig
 {
 	string ip;
+	string name;
 	u32 port;
 	u32 threadCount;
 	NetConfig();
@@ -23,12 +24,24 @@ struct DBConfig
 
 	}
 };
-
-struct CommonConfig
+struct LoginConfig 
 {
 	NetConfig net;
 	DBConfig db;
-	CommonConfig();
+};
+struct CenterConfig 
+{
+	uMap<int, NetConfig*> centers;
+	DBConfig db;
+	~CenterConfig(){
+		centers.destroySecond();
+	}
+};
+struct GameConfig
+{
+
+
+	GameConfig();
 };
 
 #endif // ConfigInfo_h__

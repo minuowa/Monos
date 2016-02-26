@@ -2,11 +2,14 @@
 #ifndef World_h__
 #define World_h__
 
-class CX_LIB World
+class CX_LIB World :public uCallBack
 {
 public:
 	World();
 	virtual ~World();
+
+	uDelegate onAccountEnterWorld;
+	uDelegate onAccountLeaveWorld;
 
 	bool initialize();
 
@@ -18,8 +21,10 @@ public:
 
 	void sync(string account_guid, string cmd);
 
+	virtual void onCallBack(const uDelegate& d, uEventArgs* e) override;
+
 private:
-	map<string, Account*> mAccounts;
+	uMap<string, Account*> mAccounts;
 };
 
 #endif // World_h__

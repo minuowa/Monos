@@ -4,7 +4,7 @@
         <name>ClientPlugins</name>
     </assembly>
     <members>
-        <!-- 对于成员“M:AResource.LoadXML``1(System.String)”忽略有格式错误的 XML 注释 -->
+        <!-- Badly formed XML comment ignored for member "M:AResource.LoadXML``1(System.String)" -->
         <member name="M:AResource.SaveXML``1(``0,System.String)">
             <summary>
              保存结构体到XML中。形式如：文件头?xml version="1.0" encoding="utf-8"?,根节点root

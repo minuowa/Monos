@@ -35,7 +35,7 @@ bool MonoEngine::initialize()
 
 	gTest.DoWork();
 
-	ScriptObject initializer("DataInitializer");
+	ScriptObject initializer("DataInitializer","DataBase");
 	initializer.init();
 	bool res = initializer.call<bool>("Init");
 	assert(res);
@@ -50,6 +50,7 @@ void MonoEngine::finish()
 	if (mDomain)
 	{
 		mono_jit_cleanup(mDomain);
+		mono_domain_unload(mDomain);
 		mDomain = nullptr;
 	}
 }
@@ -113,7 +114,7 @@ namespace CoreScript
 		return res;
 	}
 
-	void DB_Sync(MonoString* account_guid,MonoString* cmd)
+	void DB_SyncClient(MonoString* account_guid,MonoString* cmd)
 	{
 		string cmdstring = mono_string_to_utf8(cmd);
 		string account_guidstring = mono_string_to_utf8(account_guid);
@@ -129,7 +130,7 @@ void MonoEngine::registAllFunction()
 	registerFunction("DataBase", "DataInitializer", "DB_alterTableColumnAttribute", CoreScript::DB_alterTableColumnAttribute);
 	registerFunction("DataBase", "DataInitializer", "DB_insert", CoreScript::DB_insert);
 	registerFunction("DataBase", "DataInitializer", "DB_queryToScriptObject", CoreScript::DB_queryToScriptObject);
-	registerFunction("DataBase", "ScriptObject", "DB_Sync", CoreScript::DB_Sync);
+	registerFunction("DataBase", "ScriptObject", "DB_Sync", CoreScript::DB_SyncClient);
 }
 
 MonoArray* MonoEngine::createArray(const char* namespacename, const char* classname, u32 cnt)
@@ -141,6 +142,15 @@ MonoArray* MonoEngine::createArray(const char* namespacename, const char* classn
 MonoArray* MonoEngine::createArray(MonoClass* monoclass, u32 cnt)
 {
 	return mono_array_new(mDomain, monoclass, cnt);
+}
+
+
+MonoArray* MonoEngine::createByteArray(u32 cnt, void* data)
+{
+	int lowbound = 0;
+	MonoArray* arr = mono_array_new(mDomain, mono_get_byte_class(), cnt);
+	dMemoryCopy(mono_array_addr_with_size(arr, sizeof(byte), 0), data, sizeof(byte)*cnt);
+	return arr;
 }
 
 MonoString* MonoEngine::createString(const char* text)

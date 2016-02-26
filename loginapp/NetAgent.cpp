@@ -12,7 +12,41 @@ NetAgent::NetAgent()
 NetAgent::~NetAgent()
 {
 }
+//case OPCODE::Create_Account:
+//{
+//	rqCreateAccount* rq = (rqCreateAccount*)pkg;
+//	if (!on_rqCreateAccount(rq->user, rq->psd))
+//	{
+//		rtCreateAccountFailed_Exist rt;
+//		SendPKG(connect->getSocket(), rt);
+//	}
+//	else
+//	{
 
+//	}
+//}
+//break;
+//case OPCODE::Login:
+//{
+//	if (!mClients.findkey(connect))
+//		mClients.Insert(connect, 1);
+
+//	rqLogin* rq = (rqLogin*)pkg;
+//	on_rqLogin(rq->user, rq->psd, connect);
+//}
+//break;
+//case OPCODE::ClientToLogin:
+//{
+//	rtCreateAccountFailed_Exist rt;
+//	SendPKG(connect->getSocket(), rt);
+//}
+//break;
+//default:
+//{
+
+//}
+//break;
+//}
 void NetAgent::onCallBack(const uDelegate& d, uEventArgs* e)
 {
 	if (d == App::Net.onMessage)
@@ -21,54 +55,59 @@ void NetAgent::onCallBack(const uDelegate& d, uEventArgs* e)
 		PKG* pkg = arg->pkg;
 		Connection* connect = arg->connect;
 
-		switch (pkg->code)
+		switch (pkg->opcode)
 		{
-		case PCODE::ACK:
+		case OPCODE::ClientLogin:
 		{
-			assert(mClients.findkey(connect));
-			PKGACK* ack = (PKGACK*)pkg;
-			int value = mClients[connect];
-			assert(value + 1 == ack->key);
-		}
-		break;
-		case PCODE::SYN:
-		{
-			PKGSYN* syn = (PKGSYN*)pkg;
-			assert(!mClients.findkey(connect));
-			mClients.Insert(connect, syn->key);
-			mClients[connect] = syn->key;
-
-			PKGACK ack;
-			ack.key = syn->key + 1;
-			SendPKG(connect->getSocket(),ack);
-
-			PKGSYN mysyn;
-			SendPKG(connect->getSocket(), mysyn);
-		}
-		break;
-		case PCODE::Create_Account:
-		{
-			rqCreateAccount* rq = (rqCreateAccount*)pkg;
-			if (!on_rqCreateAccount(rq->user, rq->psd))
+			switch (pkg->childid)
 			{
-				rtCreateAccountFailed_Exist rt;
-				SendPKG(connect->getSocket(), rt);
+			case OPCODE::ClientLoginType::RqGameServerInfo:
+			{
+				ClientToLogin_RqGameServerInfo* rq = (ClientToLogin_RqGameServerInfo*)pkg;
+				
+				NetConfig* netconfig;
+
+				if (App::Config.center.centers.Get(rq->serverID, netconfig))
+				{
+					ClientToLogin_RtGameServerInfo rt;
+					dMemoryCopy(rt.host, (void*)netconfig->ip.c_str(), netconfig->ip.length());
+					dMemoryCopy(rt.name, (void*)netconfig->name.c_str(), netconfig->name.length());
+					rt.port = netconfig->port;
+					SendPKG(connect->getSocket(), rt);
+				}
 			}
-			else
-			{
-
+			break;
 			}
 		}
 		break;
-		case PCODE::Login:
+		case OPCODE::CenterLogin:
 		{
-			if(!mClients.findkey(connect))
-				mClients.Insert(connect, 1);
-
-			rqLogin* rq = (rqLogin*)pkg;
-			on_rqLogin(rq->user, rq->psd, connect);
+			switch (pkg->childid)
+			{
+			case OPCODE::CenterLoginType::AppStart:
+			{
+			}
+			break;
+			case OPCODE::CenterLoginType::AppInfo:
+			{
+			}
+			break;
+			}
 		}
 		break;
+
+		case OPCODE::ID::CenterClient:
+		{
+			switch (pkg->childid)
+			{
+			case OPCODE::ClientLoginType::RqGameServerInfo:
+			{
+				ClientToLogin_RtGameServerInfo cmd;
+				SendPKG(connect->getSocket(), cmd);
+			}
+			break;
+			}
+		}
 		}
 	}
 	else if (d == App::Net.onDisconnect)
@@ -99,7 +138,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con)
 {
 	//the account enter the net gate
 	Account* gateAccount = new Account();
-	gateAccount->set_connect(con);
+	gateAccount->setConnection(con);
 	if (!gateAccount->init())
 	{
 		delete gateAccount;
@@ -108,52 +147,31 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con)
 
 	bool res = false;
 
-	gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_USER, user);
+	gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_USER, user);
 
-	if(!gateAccount->getDBObject()->fetchByField(YW_TABLE_ACCOUNT_USER))
+	if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER))
 	{
-		if (App::Config.loginApp.db.autoCreateAccount)
+		if (App::Config.login.db.autoCreateAccount)
 		{
-			gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_PSD, psw);
-			gateAccount->getDBObject()->setField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
+			gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_PSD, psw);
+			gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
 
 			//does not exist,create successfully!
-			if (gateAccount->getDBObject()->createAndInsertToDB())
+			if (gateAccount->getDBInterface()->createAndInsertToDB())
 			{
 				res = true;
 			}
 		}
-	}
-	else 
-	{
-		MonoString* pwd;
-		gateAccount->getDBObject()->getField(YW_TABLE_ACCOUNT_PSD, pwd);
-		if (pwd)
-		{
-			string strpwd = mono_string_to_utf8(pwd);
-			if (strpwd == psw)
-			{
-				//exist,load successfully!
-				res = true;
-			}
-		}
-	}
-
-	if (!res)
-	{
-		rtLogin rt;
-		rt.res = SC_Failed_PSD_Error;
-		SendPKG(con->getSocket(), rt);
-
-		delete gateAccount;
 	}
 	else
 	{
-		rtLogin rt;
-		rt.res = LoginResult::Successed;
-		SendPKG(con->getSocket(), rt);
-
-		App::World.onEnterWorld(gateAccount);
+		string strpwd ;
+		gateAccount->getDBInterface()->getField(YW_TABLE_ACCOUNT_PSD, strpwd);
+		if (strpwd == psw)
+		{
+			//exist,load successfully!
+			res = true;
+		}
 	}
 
 	return res;

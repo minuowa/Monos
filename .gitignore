@@ -3,3 +3,5 @@
 /Debug/*.pdb
 /*.sdf
 *.tlog
+/Default/Debug/*.log
+*.obj
