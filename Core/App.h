@@ -40,6 +40,8 @@ protected:
 
 	bool InitDataBase();
 
+	bool InitScript();
+
 private:
 	APP_TYPE mType;
 	int mServerID;

@@ -2,11 +2,12 @@
 <Config>
   <login >
 	<db dbname="yourworld" user="root" passwrod="ni2handan" host="127.0.0.1" port="3307" autoCreateAccount="true"/>
-    <net ip="127.0.0.1" port="15299" threadCount="4"/>	
+    <net ip="127.0.0.1" port="15299" threadCount="4"/>
+	<script open="false"/>	
   </login>
   <center >
     <db dbname="yourworld" user="root" passwrod="ni2handan" host="127.0.0.1" port="3307" autoCreateAccount="true"/>
-    
+    <script open="true"/>	
     <net id="1" ip="127.0.0.1" port="7800" threadCount="4" name="XX1"/>
     <net id="2" ip="127.0.0.1" port="7801" threadCount="4" name="XX2"/>
     <net id="3" ip="127.0.0.1" port="7802" threadCount="4" name="XX3"/>

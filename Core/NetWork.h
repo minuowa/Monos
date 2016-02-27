@@ -1,5 +1,4 @@
 #pragma once
-struct GameConfig;
 
 #include "Poco/Net/TCPServer.h"
 #include "Poco/Net/TCPServerConnection.h"

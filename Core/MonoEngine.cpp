@@ -223,6 +223,12 @@ bool MonoEngine::initBase()
 	//lib path:the path of "mono\\2.0\\mscorlib.dll"
 	mono_set_dirs(min_runtime_lib_path,"..\\Etc");
 
+	//int port = (int)(56000 + (GetCurrentProcessId() % 1000));
+	int port = 56080;
+	char options[255];
+	sprintf_s(options, 255, "--debugger-agent=transport=dt_socket,address=127.0.0.1:%d,server=y,suspend=n", port);
+	char* args = options;
+	mono_jit_parse_options(1, &args);
 	mono_debug_init(MONO_DEBUG_FORMAT_MONO);
 
 	mDomain = mono_jit_init("App");

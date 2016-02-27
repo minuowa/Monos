@@ -29,7 +29,7 @@ bool App::initialize()
 	if (!InitDataBase())
 		return false;
 
-	if (!Script.initialize())
+	if (!InitScript())
 		return false;
 
 	if (!World.initialize())
@@ -100,6 +100,35 @@ bool App::InitDataBase()
 		CXASSERT_RESULT_FALSE(0);
 	}
 	return true;
+}
+
+bool App::InitScript()
+{
+	ScriptConfig scriptcfg;
+
+	if (mType == APP_TYPE_LOGIN)
+	{
+		scriptcfg = Config.login.script;
+
+	}
+	else if (mType == APP_TYPE_CENTER)
+	{
+		scriptcfg = Config.center.script;
+	}
+	else
+	{
+		CXASSERT_RESULT_FALSE(0);
+	}
+
+	if (scriptcfg.open)
+	{
+		if (!Script.initialize())
+			return false;
+	}
+
+	return true;
+
+
 }
 
 Config App::Config;

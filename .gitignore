@@ -5,3 +5,8 @@
 *.tlog
 /Default/Debug/*.log
 *.obj
+*.ilk
+*.pdb
+*.cache
+/centerapp/Debug/*.log
+*.pch

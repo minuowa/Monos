@@ -24,24 +24,24 @@ struct DBConfig
 
 	}
 };
+struct ScriptConfig 
+{
+	bool open;
+};
 struct LoginConfig 
 {
 	NetConfig net;
 	DBConfig db;
+	ScriptConfig script;
 };
 struct CenterConfig 
 {
-	uMap<int, NetConfig*> centers;
 	DBConfig db;
-	~CenterConfig(){
+	ScriptConfig script;
+	uMap<int, NetConfig*> centers;
+	~CenterConfig() {
 		centers.destroySecond();
 	}
-};
-struct GameConfig
-{
-
-
-	GameConfig();
 };
 
 #endif // ConfigInfo_h__

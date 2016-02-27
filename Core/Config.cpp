@@ -17,6 +17,10 @@ bool Config::initialize(const char* file)
 
 	xml_get_node("login")
 	{
+		xml_get_node("script")
+		{
+			xml_get_attr("open", login.script.open);
+		}
 		xml_get_node("db")
 		{
 			xml_get_attr("dbname", login.db.dbName);
@@ -37,6 +41,11 @@ bool Config::initialize(const char* file)
 
 	xml_get_node("center")
 	{
+		xml_get_node("script")
+		{
+			xml_get_attr("open", center.script.open);
+		}
+
 		xml_get_node("db")
 		{
 			xml_get_attr("dbname", center.db.dbName);

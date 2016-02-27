@@ -1,0 +1,1 @@
+game.centerapp type=1 serverID=5
