@@ -1,0 +1,5 @@
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\ComboBox SDK Sample\1.0\\Reference.ComboBox.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\ComboBox SDK Sample\1.0\\Microsoft.VisualStudio.Validation.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\ComboBox SDK Sample\1.0\\Reference.ComboBox.pkgdef
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\ComboBox SDK Sample\1.0\\extension.vsixmanifest
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\ComboBox SDK Sample\1.0\\Reference.ComboBox.pdb

@@ -1,0 +1,16 @@
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\MDebugger.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\Microsoft.VisualStudio.Validation.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\Mono.Debugger.Soft.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\Mono.Debugging.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\Mono.Debugging.Soft.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\MDebugger.pkgdef
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\extension.vsixmanifest
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.0\\MDebugger.pdb
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\MDebugger.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\Microsoft.VisualStudio.Validation.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\Mono.Debugger.Soft.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\Mono.Debugging.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\Mono.Debugging.Soft.dll
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\MDebugger.pkgdef
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\extension.vsixmanifest
+C:\Users\0start\AppData\Local\Microsoft\VisualStudio\14.0Exp\Extensions\Microsoft Corp\MDebuger\5.1\\MDebugger.pdb

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Copyright (c) Microsoft Corporation. All rights reserved. 
+THIS CODE IS PROVIDED *AS IS* WITHOUT WARRANTY OF
+ANY KIND, EITHER EXPRESS OR IMPLIED, INCLUDING ANY
+IMPLIED WARRANTIES OF FITNESS FOR A PARTICULAR
+PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
+
+-->
+
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!--This is the file that defines the actual layout and type of the commands. 
+  It is divided in different sections (e.g. command definition, command 
+  placement, ...), with each defining a specific set of properties. 
+  See the comment before each section for more details about how to 
+  use it. -->
+
+  <!--This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
+  <Extern href="stdidcmd.h"/>
+  <!--This header contains the command ids for the menus provided by the shell. -->
+  <Extern href="vsshlids.h"/>
+
+  <Commands package="guidComboBoxPkg">
+    <!--Inside this section we can have different sub-sections: one for the menus, another  
+    for the menu groups, one for the buttons (the actual commands), one for the combos 
+    and the last one for the bitmaps used. Each element is identified by a command id that  
+    is a unique pair of guid and numeric identifier; the guid part of the identifier is usually  
+    called "command set" and is used to group different command inside a logically related  
+    group; your package should define its own command set in order to avoid collisions  
+    with command ids defined by other packages. -->
+    <Menus>
+
+      <!--In this section you can define new menus. A menu in VS is the generic way of
+      refering to both menus (all types, including context menus and MenuControllers)
+      and toolbars (both toolwindow and top-level). A menu is a container for groups. -->
+      <Menu guid="guidComboBoxCmdSet" id="MyToolbar" priority="0x0000" type="Toolbar">
+        <Strings>
+          <ButtonText>MDebuger</ButtonText>
+        </Strings>
+      </Menu>
+    </Menus>
+
+    <!--In this section you can define new groups. A group is a container for menus 
+      or buttons (commands); from a visual point of view you can see the group as the 
+      part of a menu or toolbar contained between seperators. The parent of a group 
+      must be a menu. -->
+    <Groups>
+      <!--NOTE: we deliberately define our group with a main menu location as our parent (in this case Tools menu). 
+      This makes sure that our commands will have a programatic name (Canonical Name) generated for them that begins 
+      with "Tools."; also our commands will be organized into this "Tools" category in the Add Command dialog which
+      can be accessed in the Tools->Customize dialog. Our combo box commands are defined with the CommandWellOnly 
+      flag which will make sure our combo box commands don't actually ever get created/shown on the main menu,
+      they will exist there only so canonical names can be generated for them. If the user customizes our commands 
+      to be placed onto the main menu, then they will be visible regardless of the CommandWellOnly flag. 
+      We add Placement tags in a section further down to also place our combo boxes on our Toolbar. -->
+      <Group guid="guidComboBoxCmdSet" id="MyToolbarGroup" priority="0xFF45">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
+      </Group>
+    </Groups>
+
+    <Combos>
+      <Combo guid="guidComboBoxCmdSet" id="ctrlIDIP" priority="0x0500" type="DynamicCombo" defaultWidth="150" idCommandList="ctrlIDIPList">
+        <Parent guid="guidComboBoxCmdSet" id="MyToolbarGroup"/>
+        <CommandFlag>IconAndText</CommandFlag>
+        <CommandFlag>CommandWellOnly</CommandFlag>
+        <Strings>
+          <ButtonText>MD.IP: </ButtonText>
+          <ToolTipText>Enter Zoom Level</ToolTipText>
+          <CanonicalName>Dynamic Combo</CanonicalName>
+          <LocCanonicalName>Dynamic Combo</LocCanonicalName>
+          <CommandName>Dynamic Combo</CommandName>
+        </Strings>
+      </Combo>
+    </Combos>
+
+    <Buttons>
+      <Button guid="guidComboBoxCmdSet" id="ctrlIDAttach" priority="0x600" type="Button" >
+        <Parent guid="guidComboBoxCmdSet" id="MyToolbarGroup"/>
+        <CommandFlag>IconAndText</CommandFlag>
+        <Strings>
+          <ButtonText>附加</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+    
+  </Commands>
+
+  <!--Inside this section, we have the ability to place groups inside menus or menus / commands inside
+  groups. For instance, it is possible to place one of VisualStudio's menus or commands inside one of our  
+  groups or one of our groups inside a menu defined somewhere else. -->
+  <CommandPlacements>
+    <!-- Place our group (MyToolbarGroup) onto our toolbar (MyToolbar)-->
+    <CommandPlacement guid="guidComboBoxCmdSet" id="MyToolbarGroup" priority="0x0100">
+      <Parent guid="guidComboBoxCmdSet" id="MyToolbar"/>
+    </CommandPlacement>
+  </CommandPlacements>
+
+  <Symbols>
+    <GuidSymbol name="guidComboBoxPkg" value="{40d9f297-25fb-4264-99ed-7785f8331c94}" />
+
+    <GuidSymbol name="guidComboBoxCmdSet" value="{B2C8E135-0E7A-4696-963E-BD3280F8578C}">
+      <IDSymbol name="MyToolbar" value="0x1000"/>
+      <IDSymbol name="MyToolbarGroup" value="0x1030"/>
+      <IDSymbol name="ctrlIDIP" value="0x107"/>
+      <IDSymbol name="ctrlIDIPList" value="0x108"/>
+      <IDSymbol name="ctrlIDAttach" value="0x109"/>
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
