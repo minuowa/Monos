@@ -1,0 +1,5 @@
+D:\project\Monos\Libs\debugger-libs\Mono.Debugger.Soft\obj\Debug\Mono.Debugger.Soft.csprojResolveAssemblyReference.cache
+D:\project\Monos\Libs\debugger-libs\Mono.Debugger.Soft\bin\Debug\Mono.Debugger.Soft.dll
+D:\project\Monos\Libs\debugger-libs\Mono.Debugger.Soft\bin\Debug\Mono.Debugger.Soft.pdb
+D:\project\Monos\Libs\debugger-libs\Mono.Debugger.Soft\obj\Debug\Mono.Debugger.Soft.dll
+D:\project\Monos\Libs\debugger-libs\Mono.Debugger.Soft\obj\Debug\Mono.Debugger.Soft.pdb

@@ -39,8 +39,6 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
                 ops.EvaluationOptions.EvaluationTimeout = 100000;
 
                 DebuggerSession session = CreateDebuggerSession();
-                string path = Path.Combine(GetTestsDir(), "UnitTests.TestApp", "Main.cs");
-                path = Path.GetFullPath(path);
 
                 ManualResetEvent done = new ManualResetEvent(false);
 

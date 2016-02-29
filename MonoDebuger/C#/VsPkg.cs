@@ -8,6 +8,7 @@ PURPOSE, MERCHANTABILITY, OR NON-INFRINGEMENT.
 
 ***************************************************************************/
 
+using EnvDTE;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -18,6 +19,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using VSLangProj;
 
 [assembly: SuppressMessage("Microsoft.Design", "CA1020:AvoidNamespacesWithFewTypes", Scope = "namespace", Target = "Microsoft.Samples.VisualStudio.MDebugger")]
 namespace Microsoft.Samples.VisualStudio.MDebugger
@@ -40,7 +42,7 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
     [InstalledProductRegistration("#100", "#102", "1.0", IconResourceID = 400)]
-        
+
     // This attribute is needed to let the shell know that this package exposes VS commands (menus, buttons, etc...)
     [ProvideMenuResource("Menus.ctmenu", 1)]
 
@@ -176,7 +178,7 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
 
         }
 
-        private string[] indexComboChoices = { Resources.Lions, Resources.Tigers, Resources.Bears};
+        private string[] indexComboChoices = { Resources.Lions, Resources.Tigers, Resources.Bears };
         private int currentIndexComboChoice = 0;
 
         private void OnMenuMyIndexCombo(object sender, EventArgs e)
@@ -207,7 +209,7 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
                 else if (input != null)
                 {
                     int newChoice = -1;
-                    if(!int.TryParse(input.ToString(), out newChoice))
+                    if (!int.TryParse(input.ToString(), out newChoice))
                     {
                         // user typed a string argument in command window.
                         for (int i = 0; i < indexComboChoices.Length; i++)
@@ -322,15 +324,49 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
         }
         private void OnAttachTo(object sender, EventArgs e)
         {
-            if ((null == e) || (e == EventArgs.Empty))
+            EnvDTE.Project selectedProject = GetActiveProject();
+            if (selectedProject == null)
+                return;
+
+            //if (0!= selectedProject.Kind.CompareTo(PrjKind.prjKindVSAProject))
+            //    return;
+
+            foreach(OutputGroup output in selectedProject.ConfigurationManager.ActiveConfiguration.OutputGroups)
             {
-                // We should never get here; EventArgs are required.
-                throw (new ArgumentNullException(Resources.EventArgsRequired)); // force an exception to be thrown
+                Debug.WriteLine("{0} : {1}", output.FileNames, output.FileURLs);
             }
 
+            //object[] objFileNames = selectedProject.ConfigurationManager.ActiveConfiguration.OutputGroups.Item(1).FileURLs as object[];
+
+            //string fileName = objFileNames[0] as string;
+            //System.Uri fileUri = new System.Uri(fileName);
+
+            //string _filePath = fileUri.LocalPath;
+
+            //var props = selectedProject.Properties;
+
+            //foreach (Property p in props)
+            //{
+            //    try
+            //    {
+            //        Debug.WriteLine("{0} : {1}", p.Name, p.Value);
+            //    }
+            //    catch (Exception exc)
+            //    {
+            //        Debug.WriteLine(exc.Message);
+            //    }
+            //}
             mExecuter.Attach();
         }
-
+        EnvDTE.Project GetActiveProject()
+        {
+            Array activeSolutionProjects = (Array)mDte.ActiveSolutionProjects;
+            if (activeSolutionProjects != null && activeSolutionProjects.Length > 0)
+            {
+                return (EnvDTE.Project)activeSolutionProjects.GetValue(0);
+            }
+            return null;
+        }
         private void OnMenuIPGetList(object sender, EventArgs e)
         {
             if ((null == e) || (e == EventArgs.Empty))
@@ -367,7 +403,7 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
 
         // Helper method to show a message box using the SVsUiShell/IVsUiShell service
         public void ShowMessage(string title, string message)
-        {            
+        {
             IVsUIShell uiShell = (IVsUIShell)GetService(typeof(SVsUIShell));
             Guid clsid = Guid.Empty;
             int result = VSConstants.S_OK;

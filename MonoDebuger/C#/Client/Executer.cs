@@ -7,6 +7,7 @@ using Mono.Debugging.Client;
 using Mono.Debugger.Soft;
 using Mono.Debugging.Soft;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Microsoft.Samples.VisualStudio.MDebugger
 {
@@ -16,18 +17,35 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
 
         public static string PROCESS_NAME_PREFIX = "game.";
 
-        DebuggerSession ds;
+        ManualResetEvent mDoneEvent = new ManualResetEvent(false);
+        DebuggerSession mDebuggerSession;
         Mono.Debugging.Client.StackFrame frame;
         public void Setup()
         {
-            ds = Start(string.Empty);
-            frame = ds.ActiveThread.Backtrace.GetFrame(0);
+            mDebuggerSession = Start(string.Empty);
+            frame = mDebuggerSession.ActiveThread.Backtrace.GetFrame(0);
+        }
+        public Executer()
+        {
+            mDebuggerSession = CreateDebuggerSession();
+            mDebuggerSession.OutputWriter = WriteCallBack;
+            mDebuggerSession.TargetStopped += MDebuggerSession_TargetStopped;
+        }
+
+        void WriteCallBack(bool isStderr, string text)
+        {
+            Console.WriteLine("PROC:" + text);
+        }
+
+        private void MDebuggerSession_TargetStopped(object sender, TargetEventArgs e)
+        {
+            mDoneEvent.Set();
         }
 
         public void TearDown()
         {
-            ds.Exit();
-            ds.Dispose();
+            mDebuggerSession.Exit();
+            mDebuggerSession.Dispose();
         }
 
         public void Attach()
@@ -36,15 +54,14 @@ namespace Microsoft.Samples.VisualStudio.MDebugger
             if (pi == null)
                 return;
 
-            
             DebuggerSessionOptions ops = new DebuggerSessionOptions();
 
             ops.EvaluationOptions = EvaluationOptions.DefaultOptions;
             ops.EvaluationOptions.EvaluationTimeout = 100000;
 
-            ds.AttachToProcess(pi, ops);
+            mDebuggerSession.AttachToProcess(pi, ops);
 
-            Debugger.Launch();
+            //Debugger.Launch();
         }
 
         ProcessInfo GetCurPorcess()
