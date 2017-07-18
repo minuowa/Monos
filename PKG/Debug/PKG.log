@@ -1,5 +1,14 @@
-﻿  pch.cpp
-  Bundle.cpp
+﻿  stdafx.cpp
+c:\program files\microsoft sdks\windows\v7.1\include\sal_supp.h(57): warning C4005: “__useHeader”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2866): note: 参见“__useHeader”的前一个定义
+c:\program files\microsoft sdks\windows\v7.1\include\specstrings_supp.h(77): warning C4005: “__on_failure”: 宏重定义
+  d:\program files (x86)\microsoft visual studio 14.0\vc\include\sal.h(2876): note: 参见“__on_failure”的前一个定义
   PKG.cpp
+d:\src\ff\monos\pkg\pkg.h(138): warning C4200: 使用了非标准扩展: 结构/联合中的零大小数组
+  d:\src\ff\monos\pkg\pkg.h(138): note: 默认构造函数或 copy/move 赋值运算符将忽略此成员
+  Bundle.cpp
+d:\src\ff\monos\pkg\pkg.h(138): warning C4200: 使用了非标准扩展: 结构/联合中的零大小数组
+  d:\src\ff\monos\pkg\pkg.h(138): note: 默认构造函数或 copy/move 赋值运算符将忽略此成员
+  正在生成代码...
 PKG.obj : warning LNK4221: 此对象文件未定义任何之前未定义的公共符号，因此任何耗用此库的链接操作都不会使用此文件
-  PKG.vcxproj -> D:\project\Monos\Monos\PKG\..\bin\Debug\PKG.lib
+  pkg.vcxproj -> D:\src\FF\Monos\Debug\pkg.lib

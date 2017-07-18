@@ -1,3 +1,6 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (cellapp.vcxproj, centerapp.vcxproj, Unity.centerapp.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  centerapp.vcxproj -> D:\project\Monos\Monos\centerapp\..\bin\Debug\game.centerapp.exe
+  NetAgent.cpp
+PKG.lib(Bundle.obj) : warning LNK4099: 未找到 PDB“PKG.pdb”(使用“PKG.lib(Bundle.obj)”或在“D:\src\FF\Monos\bin\Debug\PKG.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+PKG.lib(pch.obj) : warning LNK4099: 未找到 PDB“PKG.pdb”(使用“PKG.lib(pch.obj)”或在“D:\src\FF\Monos\bin\Debug\PKG.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  centerapp.vcxproj -> D:\src\FF\Monos\centerapp\..\bin\Debug\game.centerapp.exe
+  centerapp.vcxproj -> ..\bin\Debug\game.centerapp.pdb (Full PDB)

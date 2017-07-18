@@ -1,0 +1,31 @@
+﻿  stdafx.cpp
+d:\src\ff\monos\common\ustring.h(728): warning C4267: “=”: 从“size_t”转换到“int”，可能丢失数据
+d:\src\ff\monos\common\xfilename.hpp(188): warning C4267: “初始化”: 从“size_t”转换到“int”，可能丢失数据
+  World.cpp
+  main.cpp
+  Test.cpp
+  SQLTable.cpp
+  SQLHelper.cpp
+  SQLExecuter.cpp
+  ScriptObject.cpp
+  ScriptArgs.cpp
+  Role.cpp
+  NetWork.cpp
+  MySqlExecuter.cpp
+  MonoEngine.cpp
+d:\src\ff\monos\core\monoengine.cpp(103): warning C4267: “参数”: 从“size_t”转换到“u32”，可能丢失数据
+  DBObject.cpp
+  DBInterface.cpp
+  DataBase.cpp
+  Core.cpp
+  Connection.cpp
+d:\src\ff\monos\core\connection.cpp(15): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+d:\src\ff\monos\core\connection.cpp(20): warning C4267: “参数”: 从“size_t”转换到“int”，可能丢失数据
+  ConfigInfo.cpp
+  Config.cpp
+  App.cpp
+  正在生成代码...
+  正在编译...
+  Account.cpp
+  正在生成代码...
+Common.lib(uPlatform.obj) : fatal error LNK1112: 模块计算机类型“X86”与目标计算机类型“x64”冲突
