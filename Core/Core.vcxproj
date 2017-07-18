@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>NotSet</CharacterSet>
@@ -97,8 +97,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>mono-2.0.lib;Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -116,8 +116,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\bin\$(Configuration)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>mono-2.0.lib;Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="App.h" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigInfo.h" />
     <ClInclude Include="Connection.h" />
@@ -168,22 +169,19 @@
     <ClInclude Include="DBInterface.h" />
     <ClInclude Include="DBObject.h" />
     <ClInclude Include="MySqlExecuter.h" />
-    <ClInclude Include="MonoEngine.h" />
     <ClInclude Include="NetWork.h" />
     <ClInclude Include="Role.h" />
-    <ClInclude Include="ScriptArgs.h" />
-    <ClInclude Include="ScriptObject.h" />
     <ClInclude Include="SQLExecuter.h" />
     <ClInclude Include="SQLHelper.h" />
     <ClInclude Include="SQLTable.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="Test.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigInfo.cpp" />
     <ClCompile Include="Connection.cpp" />
@@ -191,12 +189,9 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="DBInterface.cpp" />
     <ClCompile Include="DBObject.cpp" />
-    <ClCompile Include="MonoEngine.cpp" />
     <ClCompile Include="MySqlExecuter.cpp" />
     <ClCompile Include="NetWork.cpp" />
     <ClCompile Include="Role.cpp" />
-    <ClCompile Include="ScriptArgs.cpp" />
-    <ClCompile Include="ScriptObject.cpp" />
     <ClCompile Include="SQLExecuter.cpp" />
     <ClCompile Include="SQLHelper.cpp" />
     <ClCompile Include="SQLTable.cpp" />
@@ -206,7 +201,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Test.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>

@@ -31,10 +31,10 @@ void NetAgent::onCallBack(const uDelegate& d, uEventArgs* e) {
             case OPCODE::CenterClientType::ClientMessage: {
                 rqClientMessage* rq = (rqClientMessage*)pkg;
 
-                MonoArray* arr = App::Script.createByteArray(rq->count, rq->data);
+                //MonoArray* arr = App::Script.createByteArray(rq->count, rq->data);
 
-                ScriptArgs arg;
-                arg << arr;
+                //ScriptArgs arg;
+                //arg << arr;
                 //mScriptObject.call("OnMessage", &arg);
             }
             break;

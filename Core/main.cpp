@@ -4,25 +4,21 @@
 #include "stdafx.h"
 #include <iostream>
 
-#include "MonoEngine.h"
-#include "Test.h"
 #include "stdio.h"
 #include "App.h"
 
-int main(int narg, const char** args)
-{
-	App* app = new App(narg, args);
+int main(int narg, const char** args) {
+    App* app = new App(narg, args);
 
-	if (!app->initialize())
-	{
-		delete app;
-		return 1;
-	}
+    if (!app->initialize()) {
+        delete app;
+        return 1;
+    }
 
-	app->run();
-	app->finish();
+    app->run();
+    app->finish();
 
-	delete app;
-	return 0;
+    delete app;
+    return 0;
 }
 

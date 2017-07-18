@@ -2,13 +2,10 @@
 #include "DBInterface.h"
 
 
-DBInterface::DBInterface()
-{
-	mClassName = "Account";
+DBInterface::DBInterface() {
 }
 
 
-DBInterface::~DBInterface()
-{
+DBInterface::~DBInterface() {
 }
 

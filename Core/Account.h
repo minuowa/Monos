@@ -1,48 +1,46 @@
 #pragma once
-#include "ScriptObject.h"
 #include "Connection.h"
 #include "DBInterface.h"
+#include "BaseObject.h"
 class Role;
 class CX_LIB Account
-	:public ScriptObject
-{
-public:
-	
-	Account();
+    : public BaseObject {
+  public:
 
-	~Account();
+    Account();
 
-	virtual bool init() override;
+    ~Account();
 
-	void enterGate();
+    virtual bool init() override;
 
-	void onRoleRqEnterWorld(string guid);
+    void enterGate();
 
-	void sendDBToClient(string data);
+    void onRoleRqEnterWorld(string guid);
 
-	void setConnection(Connection* connect);
+    void sendDBToClient(string data);
 
-	DBInterface* getDBInterface();
+    void setConnection(Connection* connect);
 
-	void sync(string data);
+    DBInterface* getDBInterface();
 
-	void enterWorld();
+    void sync(string data);
 
-	inline Connection* getNetInterface();
+    void enterWorld();
 
-protected:
+    inline Connection* getNetInterface();
 
-	void createRole();
+  protected:
 
-protected:
+    void createRole();
 
-	DBInterface* mDBInterface;
+  protected:
 
-	Role* mActiveRole;
+    DBInterface* mDBInterface;
 
-	Connection* mNetInterface;
+    Role* mActiveRole;
+
+    Connection* mNetInterface;
 };
-inline Connection* Account::getNetInterface()
-{
-	return mNetInterface;
+inline Connection* Account::getNetInterface() {
+    return mNetInterface;
 }

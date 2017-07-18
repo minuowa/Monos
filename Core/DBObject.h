@@ -1,27 +1,26 @@
 #pragma once
-#include "ScriptObject.h"
+#include "BaseObject.h"
 class CX_LIB DBObject :
-	public ScriptObject
-{
-public:
-	DBObject();
-	~DBObject();
+    public BaseObject {
+  public:
+    DBObject();
+    ~DBObject();
 
-	bool fetchByField(const char* field);
+    bool fetchByField(const char* field);
 
-	void sync(string data);
+    void sync(string data);
 
-	bool fetch();
+    bool fetch();
 
-	bool saveToDB();
-	
-	bool createAndInsertToDB();
-	
-	void requireGUID();
+    bool saveToDB();
 
-	void updateGUIDByScript();
+    bool createAndInsertToDB();
 
-	virtual void setGuid(const char* guid) override;
+    void requireGUID();
+
+    void updateGUIDByScript();
+
+    virtual void setGuid(const char* guid) override;
 
 };
 

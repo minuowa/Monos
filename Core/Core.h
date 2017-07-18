@@ -2,7 +2,6 @@
 #define Core_h__
 #include "stdafx.h"
 #include "Config.h"
-#include "MonoEngine.h"
 #include "NetWork.h"
 #include "DataBase.h"
 #include "App.h"
