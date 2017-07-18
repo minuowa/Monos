@@ -1,6 +1,0 @@
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\obj\Debug\Mono.Debugging.Soft.csprojResolveAssemblyReference.cache
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\bin\Debug\Mono.Debugging.Soft.xml
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\bin\Debug\Mono.Debugging.Soft.dll
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\bin\Debug\Mono.Debugging.Soft.pdb
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\obj\Debug\Mono.Debugging.Soft.dll
-D:\project\Monos\Libs\debugger-libs\Mono.Debugging.Soft\obj\Debug\Mono.Debugging.Soft.pdb
